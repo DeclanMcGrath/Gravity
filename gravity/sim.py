@@ -11,10 +11,10 @@ class Sim:
     def calcGravAccel(pm1, pm2): # F_g = G * m1 * m2 / r^2  ∴  a = G * m1 / r^2
         gravAccel = []
         for i in range(0,3):
-            if(pm1.getPosVec().getCartesian()[0] - pm2.getPosVec().getCartesian()[0] != 0):
+            if(pm1.getPosVec().getCartesian()[0] - pm2.getPosVec().getCartesian()[0] != 0): # checks to make sure the coord dif isn't 0. Avoids / by 0 error
                 gravAccel.append(Sim.G * pm2.getMass() / pow(pm1.getPosVec().getCartesian()[0] - pm2.getPosVec().getCartesian()[0], 2))
             else:
-                gravAccel.append(0)
+                gravAccel.append(0) # if the coord dif IS 0, it appends 0 bc there will be no attraction in that direction
         return gravAccel
     
     def update(self):
