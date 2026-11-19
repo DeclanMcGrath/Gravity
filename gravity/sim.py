@@ -17,6 +17,17 @@ class Sim:
                 gravAccel.append(0) # if the coord dif IS 0, it appends 0 bc there will be no attraction in that direction
         return gravAccel
     
+    def calcCenterMass(points):
+        toReturn = []
+        for i in range(0,3):
+            centerMass = 0
+            totalMass = 0
+            for point in points:
+                centerMass += point.getMass() * point.getPosVec().getCartesian()[i]
+                totalMass += point.getMass()
+            toReturn.append(centerMass / totalMass)
+        return toReturn
+    
     def update(self):
         pointUpdated = []
         for point in self.points: # fills pointUpdated with new points that are the updated versions of the points in self.points
@@ -33,16 +44,19 @@ class Sim:
             self.points[i] = pointUpdated[i]
         del pointUpdated
     
+    def getPoints(self):
+        return self.points
+
     def stopSim(self): # you should kill yourself NOW!!
         del self
 
-"""            
-pt1 = PointMass(Vector([1,2,3]),Vector([1,2,3]),1000000000000000,1)
-pt2 = PointMass(Vector([3,4,5]),Vector([6,4,2]),2000000000000000,1)
-pt3 = PointMass(Vector([6,7,8]),Vector([9,9,9]),3000000000000000,1)
-pt4 = PointMass(Vector([9,10,11]),Vector([1,0,1]),4000000000000000,1)
+"""
+pt1 = PointMass(Vector([1,2,3]),Vector([1,2,3]),10000000000,1, -1)
+pt2 = PointMass(Vector([3,4,5]),Vector([6,4,2]),20000000000,1, -1)
+pt3 = PointMass(Vector([6,7,8]),Vector([9,9,9]),30000000000,1, -1)
+pt4 = PointMass(Vector([9,10,11]),Vector([1,0,1]),40000000000,1, -1)
 
 sim = Sim([pt1, pt2, pt3, pt4])
 
-sim.update()
+print(Sim.calcCenterMass(sim.points))
 """

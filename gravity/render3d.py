@@ -4,13 +4,14 @@ from ctypes import byref
 import math
 from pointMass import PointMass
 from vector import Vector
+from camera3d import Camera
 
-class canvas:
-    def __init__(self, X, Y, tickSpeed):
-        self.sizeX = X
-        self.sizeY = Y
+class Canvas:
+    def __init__(self, x, y, tickSpeed):
+        self.sizeX = x 
+        self.sizeY = y 
         ##intialize the library
-        if SDL_Init(SDL_INIT_VIDEO) !=0:
+        if SDL_Init(SDL_INIT_VIDEO) != 0:
             print(f"SDL_Init Error: {SDL_GetError().decode('utf-8')}")
             return
         
@@ -84,6 +85,7 @@ class canvas:
             self.fillCircle(renderer, pointMassX, pointMassY, i)
 
     def renderStep(self, renderer, pointMassX, pointMassY, pointMassRadius):
+        ##render the point mass
         self.glowCircle(renderer, pointMassX, pointMassY, pointMassRadius * 3, color=(255, 120, 30))   # wide, dim outer halo
         self.glowCircle(renderer, pointMassX, pointMassY, pointMassRadius * 1.5, color=(255, 200, 50))   # mid glow
         self.glowCircle(renderer, pointMassX, pointMassY, pointMassRadius * 0.75, color=(255, 255, 200))
@@ -91,4 +93,4 @@ class canvas:
         self.fillCircle(renderer, pointMassX, pointMassY, pointMassRadius // 2)
 
 if __name__ == "__main__":
-    canvas(800, 600, 10).run()
+    Canvas(800, 600, 10).run()
