@@ -1,14 +1,17 @@
 import math
-from vector import Vector
 
 class Camera:
     
-    def __init__(self, posX, posY, poZ, rotAngle, pitchAngle):
+    def __init__(self, posX, posY, posZ, rotAngle, pitchAngle, screenW, screenH):
         self.x = posX
         self.y = posY
-        self.z = poZ
+        self.z = posZ
         self.rot = rotAngle
         self.pitch = pitchAngle
+        self.dist = 30.0
+        self.focal = 600.0
+        self.screenW = screenW
+        self.screenH = screenH
 
     def moveCam(self, newX, newY, newZ):
         self.x = newX
