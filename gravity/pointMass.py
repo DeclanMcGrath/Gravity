@@ -9,9 +9,9 @@ class PointMass:
         self.radius = radius 
         self.surfaceTemp = surfaceTemp
     
-    def nextFrame(self, accVec):
-        self.velVec.changeXYZ(accVec)
-        self.posVec.changeXYZ(self.velVec)
+    def nextFrame(self, accVec, dt=0.05):
+        self.velVec.changeXYZ(accVec.scaled(dt))
+        self.posVec.changeXYZ(self.velVec.scaled(dt))
 
     def getPosVec(self):
         return self.posVec
@@ -22,7 +22,7 @@ class PointMass:
     def getRadius(self):
         return self.radius
     def getDensity(self): # kg/m^3
-        return self.mass / (4 / 3 * math.pi * pow(self.radius, 2))
+        return self.mass / (4 / 3 * math.pi * pow(self.radius, 3))
     def getSurfaceTemp(self):
         return self.surfaceTemp
 
