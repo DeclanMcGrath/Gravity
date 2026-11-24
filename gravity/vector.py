@@ -33,3 +33,6 @@ class Vector:
 
     def scaled(self, k):
         return Vector([self.x * k, self.y * k, self.z * k])
+    
+    def __str__(self):
+        return f"{self.x},{self.y},{self.z}"

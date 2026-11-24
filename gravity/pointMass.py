@@ -25,4 +25,6 @@ class PointMass:
         return self.mass / (4 / 3 * math.pi * pow(self.radius, 3))
     def getSurfaceTemp(self):
         return self.surfaceTemp
+    def __str__(self):
+        return f"{self.posVec},{self.velVec},{self.mass},{self.radius},{self.surfaceTemp}"
 

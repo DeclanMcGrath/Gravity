@@ -7,6 +7,11 @@ class Sim:
     
     def __init__(self, points):
         self.points = points
+        with open("objects.txt", "w") as f:
+            for point in points:
+                f.write(point.__str__() + "...")
+            f.close()
+                
 
     @staticmethod
     def calcGravAccel(pm1, pm2): # F_g = G * m1 * m2 / r^2  ∴  a = G * m1 / r^2
@@ -46,6 +51,25 @@ class Sim:
     
     def getPoints(self):
         return self.points
+    
+    def addPoint(self, point):
+        self.points.append(point)
+        with open("objects.txt", "a") as f:
+            f.write(point.__str__()+"...")
+
+    def reloadPointsList(self): # goes into objects.txt and reloads the points list in case any new points have been added.
+        ptsTxt = open("objects.txt").read()
+        ptsSep = ptsTxt.split("...")
+        del ptsSep[-1]
+        self.points = []
+        for pts in ptsSep:
+            ptVal = pts.split(",")
+            self.points.append(PointMass(
+                Vector([ptVal[0],ptVal[1],ptVal[2]]), 
+                Vector([ptVal[3],ptVal[4],ptVal[5]]),
+                ptVal[6], ptVal[7], ptVal[8]
+            ))
+
 
     def stopSim(self): # you should kill yourself NOW!!
         del self
@@ -58,5 +82,9 @@ pt4 = PointMass(Vector([9,10,11]),Vector([1,0,1]),40000000000,1, -1)
 
 sim = Sim([pt1, pt2, pt3, pt4])
 
-print(Sim.calcCenterMass(sim.points))
+
+print(sim.points[-1])
+pt5 = PointMass(Vector([12,13,14]),Vector([0,0,0]),4,2,100)
+sim.addPoint(pt5)
+print(sim.points[-1])
 """
